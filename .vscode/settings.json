@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "xstring": "cpp",
+    "deque": "cpp",
+    "format": "cpp",
+    "list": "cpp",
+    "vector": "cpp",
+    "iostream": "cpp",
+    "regex": "cpp",
+    "xtree": "cpp",
+    "utility": "cpp",
+    "string": "cpp"
+  }
+}
