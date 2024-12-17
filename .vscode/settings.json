@@ -9,6 +9,9 @@
     "regex": "cpp",
     "xtree": "cpp",
     "utility": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "random": "cpp",
+    "xiosbase": "cpp",
+    "ios": "cpp"
   }
 }
