@@ -12,6 +12,8 @@
     "string": "cpp",
     "random": "cpp",
     "xiosbase": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "queue": "cpp",
+    "cstdlib": "cpp"
   }
 }
