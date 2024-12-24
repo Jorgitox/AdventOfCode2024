@@ -14,6 +14,14 @@
     "xiosbase": "cpp",
     "ios": "cpp",
     "queue": "cpp",
-    "cstdlib": "cpp"
+    "cstdlib": "cpp",
+    "map": "cpp",
+    "chrono": "cpp",
+    "xlocale": "cpp",
+    "stack": "cpp",
+    "algorithm": "cpp",
+    "xutility": "cpp",
+    "set": "cpp",
+    "unordered_set": "cpp"
   }
 }

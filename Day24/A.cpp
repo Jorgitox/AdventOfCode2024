@@ -30,11 +30,94 @@ signed main() {
   while(getline(cin, line))
     input.pb(line);  
   
+  map<string, bool> wires;
 
-  FOR(i, 0, SZ(input))
-    cout << SZ(input[i]) << ENDL;
+  int i = 0;
+  for(; i < SZ(input); i++){
+    if(SZ(input[i]) < 2){
+      break;
+    }
+
+    string wire = input[i].substr(0, 3);
+    
+    bool state = input[i][5] == '1';
+
+    wires[wire] = state;
+  }
+
+  i++;
+
+  map<string, pair<string, pair<string, string>>> outputs;
+
+  for(; i < SZ(input); i++){
+    string wire1 = "";
+    int j = 0;
+    for(; j < SZ(input[i]); j++){
+      if(!isdigit(input[i][j]) && !isalpha(input[i][j])){
+        break;
+      }
+
+      wire1.pb(input[i][j]);
+    }
+    j++;
+    string operation = "";
+    for(; j < SZ(input[i]); j++){
+      if(!isdigit(input[i][j]) && !isalpha(input[i][j])){
+        break;
+      }
+
+      operation.pb(input[i][j]);
+    }
+    j++;
+    string wire2 = "";
+    for(; j < SZ(input[i]); j++){
+      if(!isdigit(input[i][j]) && !isalpha(input[i][j])){
+        break;
+      }
+
+      wire2.pb(input[i][j]);
+    }
+    j += 4;
+    string wire3 = "";
+    for(; j < SZ(input[i]); j++){
+      if(!isdigit(input[i][j]) && !isalpha(input[i][j])){
+        break;
+      }
+
+      wire3.pb(input[i][j]);
+    }
+    
+    outputs[wire3] = {operation, {wire1, {wire2}}};
+  }
+
+  while(!outputs.empty()){
+    for(auto it = outputs.begin(); it != outputs.end(); it++){
+      string wire1 = it -> second.second.first;
+      string wire2 = it -> second.second.second; 
+      if(wires.find(wire1) == wires.end() || wires.find(wire2) == wires.end()){
+        continue;
+      }
+
+      if(it -> second.first == "AND"){
+        wires[it -> first] = wires[wire1] && wires[wire2];
+      } else if(it -> second.first == "XOR"){
+        wires[it -> first] = wires[wire1] != wires[wire2];
+      } else{
+        wires[it -> first] = wires[wire1] || wires[wire2];
+      }
+
+      outputs.erase(it);
+    }
+  }
 
   ll ans = 0;
+
+  for(auto it = wires.find("z00"); it != wires.end(); it++){
+    if(it -> second){
+      ll id = stoll(it -> first.substr(1, 3));
+      ans += (1ll << id);
+    }
+  }
 
   cout << ans;
   

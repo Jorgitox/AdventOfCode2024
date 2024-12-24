@@ -31,10 +31,54 @@ signed main() {
     input.pb(line);  
   
 
-  FOR(i, 0, SZ(input))
-    cout << SZ(input[i]) << ENDL;
+  map<string, vector<string>> adj;
+
+  FOR(i, 0, SZ(input)){
+    string u = "", v = "";
+    bool a = 0;
+    FOR(j, 0, SZ(input[i])){
+      if(input[i][j] >= 'a' && input[i][j] <= 'z'){
+        if(a){
+          v.pb(input[i][j]);
+        } else{
+          u.pb(input[i][j]);
+        }
+      } else{
+        a = 1;
+      }
+    }
+    adj[u].pb(v);
+    adj[v].pb(u);
+  }
+
+  for(auto & [computer, connections] : adj){
+    sort(ALL(connections));
+  }
+
+  set<vector<string>> st;
+
+  for(auto & [computer, connections] : adj){
+    FOR(i, 0, SZ(connections)){
+      FOR(j, i + 1, SZ(connections)){
+        // cout << computer << " - " << connections[i] << " - " << connections[j] << ENDL;
+        if(binary_search(ALL(adj[connections[i]]), connections[j])){
+          vector<string> trio = {computer, connections[i], connections[j]};
+          sort(ALL(trio));
+          st.insert(trio);
+        } 
+      }
+    }
+  }
 
   ll ans = 0;
+
+  for(auto & trio : st){
+    // cout << trio[0] << " - " << trio[1] << " - " << trio[2] << ENDL;
+    if(trio[0][0] == 't' || trio[1][0] == 't' || trio[2][0] == 't')
+      ans++;
+  }
+
+  cout << SZ(adj) << ENDL;
 
   cout << ans;
   

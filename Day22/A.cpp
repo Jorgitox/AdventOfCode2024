@@ -21,6 +21,19 @@ using vvll = vector<vll>;
 const ll dx[] = {-1, 0, 1, 0};
 const ll dy[] = {0, 1, 0, -1};
 
+ll final_magic_number(ll n){
+  FOR(i, 0, 2000){
+    n ^= n * 64;
+    n %= 16777216;
+    n ^= n / 32;
+    n %= 16777216;
+    n ^= n * 2048;
+    n %= 16777216;
+  }
+
+  return n;
+}
+
 signed main() {
   cin.tie(0)->sync_with_stdio(0);
 
@@ -30,11 +43,19 @@ signed main() {
   while(getline(cin, line))
     input.pb(line);  
   
-
-  FOR(i, 0, SZ(input))
-    cout << SZ(input[i]) << ENDL;
-
   ll ans = 0;
+
+  FOR(i, 0, SZ(input)){
+    string fixed_input = input[i];
+    if(i != SZ(input) - 1)
+      fixed_input = input[i].substr(0, SZ(input[i]) - 1);
+
+    ll result = final_magic_number(stoll(fixed_input));
+
+    cout << result << ENDL;
+
+    ans += result;
+  }
 
   cout << ans;
   
